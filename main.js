@@ -9,6 +9,7 @@ let ctx = canvas.getContext("2d");
 let typingMode = 'wordcount';
 let wordCount;
 let timeCount;
+let customText = '';
 
 // Initialize dynamic variables
 let randomWords = [];
@@ -35,6 +36,7 @@ ctx.textBaseline = "middle"
 const PUNCREGEX = /!:;'",.\/?!@#$%^&*()_}{\[\]\-s\+\=/;
 
 // Get cookies
+customText = getCookie('customText');
 getCookie('theme') === '' ? setTheme('light') : setTheme(getCookie('theme'));
 getCookie('language') === '' ? setLanguage('english') : setLanguage(getCookie('language'));
 getCookie('wordCount') === '' ? setWordCount(50) : setWordCount(getCookie('wordCount'));
@@ -61,8 +63,11 @@ function setText(e) {
 
   switch (typingMode) {
     case 'custom':
-      const helpText = "Paste your custom text and click redo!"
-      wordList = (inputField.value === 'custom' || inputField.value === '') ? helpText.split(" "): betterSplit(inputField.value);
+      if (inputField.value === 'custom') {
+        customText = prompt('enter custom text:');
+        setCookie('customText', customText, 90);
+      }
+      wordList = betterSplit(customText);
       punctuation = false;
       textDisplay.style.height = '3.2rem';
       textDisplay.innerHTML = '';
