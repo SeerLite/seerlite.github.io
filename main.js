@@ -337,7 +337,7 @@ document.addEventListener('keydown', e => {
     }
     // [mod + r] => Real time stats
     if (e.key === 'r') {
-      setRealTime(!realTime + "");
+      setRealTime(inputField.value);
     }
   } else if (!document.querySelector('#theme-center').classList.contains('hidden')) {
     if (e.key === 'Escape') {
